@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" type="text/css" href="../static/style.css">
+
+    <title>Mars</title>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4 center">Mission to Mars</h1>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="scrape" role="button">Scrape New Data</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="container">   
+        <h1 class="headline"> Latest Mars News</h1>
+        <h3 class="headline">{{ mars.latest_news["news_title"] }}</h3>
+        <p>{{ mars.latest_news["news_p"] }}</p>
+    </div>
+
+    <br>
+
+    <div class="container">
+        <div class="col-md-8">
+            <h2 class="headline">Featured Mars Image</h2>
+            <img src={{ mars.featured_img }} class="col-md-12" alt="Featured Mars Image">
+        </div>
+        <div class="col-md-4">            
+            <div class="row" id="weather">
+                <h4 class="headline">Current Weather on Mars</h4>
+                <p>{{ mars.latest_weather }}</p>
+            </div>
+            <br>
+            <div class="row"> 
+                <h4 class="headline">Mars Facts</h4>
+                <table border="1" class="dataframe">
+                    <thead>
+                      <tr style="text-align: right;">
+                        <th>Description</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for key,value in mars.facts.items() %}
+                        <tr>
+                            <td>{{key}}</td>
+                            <td>{{value}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="container">
+        <h1 class="headline col-md-12 ">Mars Hemispheres</h1>
+            {% for x in mars.hemisphere_img %}
+            <div class="card col-md-6">
+                <img class="card-img-top col-md-12" src={{x.img_url}} alt={{x.title}}>
+                <div class="card-body">
+                    <h3 class="center">{{x.title}}</h3>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+    
+</body>
+</html>

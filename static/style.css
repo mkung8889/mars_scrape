@@ -1,0 +1,12 @@
+.center {
+    text-align: center;
+}
+
+#weather {
+    border: 2px solid;
+    border-color: grey;
+    padding: 10px;
+}
+.headline {
+    font-weight: bold;
+}
