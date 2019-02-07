@@ -17,8 +17,12 @@ def scrape():
     news_html = browser.html
     news_soup = BeautifulSoup(news_html,'html.parser')
     news_results = news_soup.find_all('li',class_='slide')
-    # if len(news_titles)==0:
-    #     news_results = news_soup.find_all('li',class_='slide')
+    if len(news_results) == 0:
+        browser.quit()
+        browser.visit(news_url)
+        news_html = browser.html
+        news_soup = BeautifulSoup(news_html,'html.parser')
+        news_results = news_soup.find_all('li',class_='slide')
     news_titles = []
     for result in news_results:
         news_title = result.find('div',class_='content_title').text
@@ -27,8 +31,6 @@ def scrape():
             'news_title': news_title,
             'news_p': news_p
         }
-        news_titles.append(dict_entry)
-    
     latest_news = news_titles[0]
 
     # JPL Mars Space Images - Featured Image
@@ -83,7 +85,6 @@ def scrape():
         browser.find_link_by_text('Back').click()
 
     mars_data = {
-        '_id': "Mars",
         'latest_news': latest_news,
         'featured_img': featured_img_url,
         'latest_weather': latest_weather,

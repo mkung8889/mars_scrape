@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route("/")
 def mars():
        mars_data= mongo.db.collection.find_one()
-       return render_template("index_copy.html",mars=mars_data)
+       return render_template("index.html",mars=mars_data)
 
 @app.route("/scrape")
 def run_scrape():
