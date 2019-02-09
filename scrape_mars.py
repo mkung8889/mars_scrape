@@ -36,7 +36,9 @@ def scrape():
     jpl_html = browser.html
     jpl_soup = BeautifulSoup(jpl_html,'html.parser')
     partial_img_url = jpl_soup.find('footer').find('a', class_='button fancybox')['data-fancybox-href']
-    featured_img_url = f"https://www.jpl.nasa.gov{partial_img_url}"
+    large_url = partial_img_url.replace('mediumsize','largesize')
+    large_url = large_url.replace('_ip', '_hires')
+    featured_img_url = f"https://www.jpl.nasa.gov{large_url}"
 
     # Mars Facts
     twitter_url = "https://twitter.com/marswxreport?lang=en"
@@ -59,9 +61,8 @@ def scrape():
     tables = pd.read_html(facts_url)
     df = tables[0]
     df.columns = ['Description','Value']
-    # df.to_html('static/mars_facts_table.html', index=False)
-    facts_dict = df.set_index('Description').to_dict()
-    mars_facts = facts_dict['Value']
+    mars_facts = df.to_html(index=False)
+
 
     # Mars Hemispheres
     hemisphere_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"

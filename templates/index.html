@@ -16,8 +16,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4 center">Mission to Mars</h1>
+        <div class="jumbotron text-center">
+            <h1 class="display-4">Mission to Mars</h1>
             <p class="lead">
                 <a class="btn btn-primary btn-lg" href="scrape" role="button">Scrape New Data</a>
             </p>
@@ -38,7 +38,7 @@
     <div class="container">
         <div class="col-md-8">
             <h2 class="headline">Featured Mars Image</h2>
-            <img src={{ mars.featured_img }} class="col-md-12" alt="Featured Mars Image">
+            <img src={{ mars.featured_img }} class="img-responsive" alt="Featured Mars Image">
         </div>
         <div class="col-md-4">            
             <div class="row" id="weather">
@@ -48,22 +48,7 @@
             <br>
             <div class="row"> 
                 <h4 class="headline">Mars Facts</h4>
-                <table border="1" class="dataframe">
-                    <thead>
-                      <tr style="text-align: right;">
-                        <th>Description</th>
-                        <th>Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        {% for key,value in mars.facts.items() %}
-                        <tr>
-                            <td>{{key}}</td>
-                            <td>{{value}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                {{ (mars.facts)|safe }}
             </div>
         </div>
     </div>
@@ -71,10 +56,10 @@
     <br>
 
     <div class="container">
-        <h1 class="headline col-md-12 ">Mars Hemispheres</h1>
+        <h1 class="headline">Mars Hemispheres</h1>
             {% for x in mars.hemisphere_img %}
             <div class="card col-md-6">
-                <img class="card-img-top col-md-12" src={{x.img_url}} alt={{x.title}}>
+                <img class="card-img-top img-responsive" src={{x.img_url}} alt={{x.title}}>
                 <div class="card-body">
                     <h3 class="center">{{x.title}}</h3>
                 </div>
