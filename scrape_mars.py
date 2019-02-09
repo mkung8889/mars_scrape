@@ -1,10 +1,11 @@
 import pandas as pd
 from splinter import Browser
 from bs4 import BeautifulSoup
+import time
 
 
 def init_browser():
-    executable_path = {'executable_path': 'C:/Users/Office fdpa/Dropbox/Homework/chromedriver.exe'}
+    # executable_path = {'executable_path': 'C:/Users/Office fdpa/Dropbox/Homework/chromedriver.exe'}
     executable_path = {"executable_path": "/usr/local/bin/chromedriver"}
     return Browser("chrome", **executable_path, headless=True)
 
@@ -14,15 +15,10 @@ def scrape():
     # NASA Mars News
     news_url="https://mars.nasa.gov/news/"
     browser.visit(news_url)
+    time.sleep(5)
     news_html = browser.html
     news_soup = BeautifulSoup(news_html,'html.parser')
     news_results = news_soup.find_all('li',class_='slide')
-    if len(news_results) == 0:
-        browser.quit()
-        browser.visit(news_url)
-        news_html = browser.html
-        news_soup = BeautifulSoup(news_html,'html.parser')
-        news_results = news_soup.find_all('li',class_='slide')
     news_titles = []
     for result in news_results:
         news_title = result.find('div',class_='content_title').text
@@ -31,6 +27,7 @@ def scrape():
             'news_title': news_title,
             'news_p': news_p
         }
+        news_titles.append(dict_entry)
     latest_news = news_titles[0]
 
     # JPL Mars Space Images - Featured Image
