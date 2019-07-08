@@ -19,4 +19,4 @@ Screenshots:
 
 -After scrapping:
 ![Screenshot after scrape (1/2)](screenshots/after_scrape(1:2).png)
-![Screenshot after scrape (1/2)](screenshots/after_scrape(2:2).png)
+![Screenshot after scrape (2/2)](screenshots/after_scrape(2:2).png)
