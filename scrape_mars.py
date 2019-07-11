@@ -5,7 +5,6 @@ import time
 
 
 def init_browser():
-    # executable_path = {'executable_path': 'C:/Users/Office fdpa/Dropbox/Homework/chromedriver.exe'}
     executable_path = {"executable_path": "/usr/local/bin/chromedriver"}
     return Browser("chrome", **executable_path, headless=True)
 
@@ -49,7 +48,7 @@ def scrape():
     mars_weather = []
     for results in twitter_results:
         weather = results.find('p', class_='TweetTextSize').text
-        if weather.split(' ')[0] == 'Sol':
+        if weather.split(' ')[0] == 'InSight':
             mars_weather.append(weather)
     latest_weather = mars_weather[0]
 
@@ -60,7 +59,7 @@ def scrape():
     facts_soup = BeautifulSoup(facts_html,'html.parser')
     tables = pd.read_html(facts_url)
     df = tables[0]
-    df.columns = ['Description','Value']
+    df.columns = ['Description','Mars', 'Earth']
     mars_facts = df.to_html(index=False)
 
 
@@ -80,7 +79,7 @@ def scrape():
             'img_url': img_url
         }
         hemisphere_img_url.append(dict_entry)
-        browser.find_link_by_text('Back').click()
+        browser.back()
 
     mars_data = {
         'latest_news': latest_news,
